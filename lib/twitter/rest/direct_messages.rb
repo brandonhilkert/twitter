@@ -24,8 +24,8 @@ module Twitter
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 50. Default is 20
       # @option options [String] :cursor Specifies the cursor position of results to retrieve.
       def direct_messages_events(options = {})
-        count = options.fetch(:count, 50)
-        perform_get_with_cursor('/1.1/direct_messages/events/list.json', { no_default_cursor: true, count: count, limit: count }.merge(options), :events, Twitter::DirectMessageEvent)
+        limit = options.fetch(:count, 20)
+        perform_get_with_cursor('/1.1/direct_messages/events/list.json', options.merge!(no_default_cursor: true, count: 50, limit: limit), :events, Twitter::DirectMessageEvent)
       end
 
       # Returns all Direct Messages for the authenticated user (both sent and received) within the last 30 days. Sorted in reverse-chronological order.
